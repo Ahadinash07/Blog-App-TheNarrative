@@ -30,7 +30,7 @@ import {
   Crown,
   Medal,
   Rocket,
-  Infinity,
+  Infinity as InfinityIcon,
   Diamond,
   Crown as CrownIcon,
   Zap as ZapIcon,
@@ -135,7 +135,7 @@ export const GamificationDashboard: React.FC = () => {
           id: 'marathon-reader',
           title: 'Marathon Master',
           description: 'Read 100 articles',
-          icon: <Infinity className="h-6 w-6" />,
+          icon: <InfinityIcon className="h-6 w-6" />,
           unlocked: false,
           progress: readingHistory.length,
           maxProgress: 100,
@@ -408,7 +408,7 @@ export const GamificationDashboard: React.FC = () => {
 
     // Overall progress
     setOverallProgress(Math.round((unlocked.length / updatedAchievements.length) * 100));
-  }, [achievements, streak, readingHistory, bookmarkedPosts, likedPosts]);
+  }, [achievements, streak, readingHistory, bookmarkedPosts, likedPosts, posts]);
 
   // Rarity styles
   const getRarityStyles = (rarity: string) => {
