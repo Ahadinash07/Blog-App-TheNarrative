@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => ({
     historyApiFallback: {
       index: '/index.html'
     },
+    hmr: {
+      overlay: true
+    }
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

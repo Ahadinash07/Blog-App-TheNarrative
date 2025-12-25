@@ -64,18 +64,18 @@ const ReadingHistory = () => {
   // Sort posts
   const sortedPosts = useMemo(() => {
     const sortFunctions = {
-      recent: (a: any, b: any) => {
+      recent: (a: Post, b: Post) => {
         const aIndex = readingHistory.indexOf(a.id);
         const bIndex = readingHistory.indexOf(b.id);
         return aIndex - bIndex;
       },
-      oldest: (a: any, b: any) => {
+      oldest: (a: Post, b: Post) => {
         const aIndex = readingHistory.indexOf(a.id);
         const bIndex = readingHistory.indexOf(b.id);
         return bIndex - aIndex;
       },
-      longest: (a: any, b: any) => b.readingTime - a.readingTime,
-      shortest: (a: any, b: any) => a.readingTime - b.readingTime,
+      longest: (a: Post, b: Post) => b.readingTime - a.readingTime,
+      shortest: (a: Post, b: Post) => a.readingTime - b.readingTime,
     };
 
     return [...filteredPosts].sort(sortFunctions[sortBy]);

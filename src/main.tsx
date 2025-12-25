@@ -5,9 +5,10 @@ import { registerServiceWorker } from "./utils/swRegistration";
 import { notificationManager } from "./utils/notificationManager";
 
 // Register service worker for PWA functionality
-if (import.meta.env.PROD) {
-  registerServiceWorker();
-}
+// Temporarily disabled to check if it's causing navigation issues
+// if (import.meta.env.PROD) {
+//   registerServiceWorker();
+// }
 
 // Start notification polling
 notificationManager.startPolling();

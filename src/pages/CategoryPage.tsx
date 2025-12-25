@@ -27,9 +27,12 @@ const CategoryPage = () => {
     (c) => c.toLowerCase().replace(' & ', '-') === slug
   );
 
-  const allCategoryPosts = categoryName
-    ? posts.filter((p) => p.category === categoryName)
-    : [];
+  const allCategoryPosts = useMemo(() =>
+    categoryName
+      ? posts.filter((p) => p.category === categoryName)
+      : [],
+    [categoryName, posts]
+  );
 
   // Filter by time
   const filteredPosts = useMemo(() => {
@@ -47,10 +50,10 @@ const CategoryPage = () => {
   // Sort posts
   const sortedPosts = useMemo(() => {
     const sortFunctions = {
-      newest: (a: any, b: any) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-      oldest: (a: any, b: any) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime(),
-      popular: (a: any, b: any) => b.views - a.views,
-      trending: (a: any, b: any) => (b.likes + b.views * 0.1) - (a.likes + a.views * 0.1),
+      newest: (a: Post, b: Post) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+      oldest: (a: Post, b: Post) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime(),
+      popular: (a: Post, b: Post) => b.views - a.views,
+      trending: (a: Post, b: Post) => (b.likes + b.views * 0.1) - (a.likes + a.views * 0.1),
     };
 
     return [...filteredPosts].sort(sortFunctions[sortBy]);
@@ -154,7 +157,7 @@ const CategoryPage = () => {
         <section className="container pb-6">
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="flex flex-wrap gap-2">
-              <Select value={timeFilter} onValueChange={(value: any) => setTimeFilter(value)}>
+              <Select value={timeFilter} onValueChange={(value: 'all' | 'week' | 'month' | 'year') => setTimeFilter(value)}>
                 <SelectTrigger className="w-32">
                   <Calendar className="h-4 w-4 mr-2" />
                   <SelectValue />

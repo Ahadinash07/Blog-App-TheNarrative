@@ -13,6 +13,15 @@ import { useAppSelector } from '@/store/hooks';
 
 type SortOption = 'popular' | 'alphabetical' | 'recent' | 'trending';
 
+interface TagStat {
+  tag: string;
+  count: number;
+  views: number;
+  likes: number;
+  recentPosts: number;
+  trending: boolean;
+}
+
 const Tags = () => {
   const posts = useAppSelector((state) => state.blog.posts);
   const [searchQuery, setSearchQuery] = useState('');
@@ -72,10 +81,10 @@ const Tags = () => {
 
     // Sort
     const sortFunctions = {
-      popular: (a: any, b: any) => b.count - a.count,
-      alphabetical: (a: any, b: any) => a.tag.localeCompare(b.tag),
-      recent: (a: any, b: any) => b.recentPosts - a.recentPosts,
-      trending: (a: any, b: any) => {
+      popular: (a: TagStat, b: TagStat) => b.count - a.count,
+      alphabetical: (a: TagStat, b: TagStat) => a.tag.localeCompare(b.tag),
+      recent: (a: TagStat, b: TagStat) => b.recentPosts - a.recentPosts,
+      trending: (a: TagStat, b: TagStat) => {
         if (a.trending && !b.trending) return -1;
         if (!a.trending && b.trending) return 1;
         return b.count - a.count;
@@ -94,7 +103,7 @@ const Tags = () => {
     return 'text-base';
   };
 
-  const getTagColor = (tag: any) => {
+  const getTagColor = (tag: TagStat) => {
     if (tag.trending) return 'bg-gradient-to-r from-orange-500 to-red-500 text-white';
     if (tag.recentPosts > 0) return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
     return 'bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground';

@@ -108,7 +108,7 @@ const Search = () => {
   // Sort posts
   const sortedPosts = useMemo(() => {
     const sortFunctions = {
-      relevance: (a: any, b: any) => {
+      relevance: (a: Post, b: Post) => {
         // Simple relevance scoring based on matches
         const aScore = (a.title.toLowerCase().includes(query.toLowerCase()) ? 3 : 0) +
                       (a.excerpt.toLowerCase().includes(query.toLowerCase()) ? 2 : 0) +
@@ -118,9 +118,9 @@ const Search = () => {
                       (b.tags.some((tag: string) => tag.toLowerCase().includes(query.toLowerCase())) ? 1 : 0);
         return bScore - aScore;
       },
-      date: (a: any, b: any) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-      views: (a: any, b: any) => b.views - a.views,
-      likes: (a: any, b: any) => b.likes - a.likes,
+      date: (a: Post, b: Post) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+      views: (a: Post, b: Post) => b.views - a.views,
+      likes: (a: Post, b: Post) => b.likes - a.likes,
     };
 
     return [...filteredPosts].sort(sortFunctions[sortBy]);
@@ -167,7 +167,7 @@ const Search = () => {
   };
 
   // Update filter
-  const updateFilter = (key: keyof SearchFilters, value: any) => {
+  const updateFilter = (key: keyof SearchFilters, value: string[] | DateFilter | number) => {
     setFilters(prev => ({ ...prev, [key]: value }));
   };
 

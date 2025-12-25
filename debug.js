@@ -1,0 +1,1 @@
+console.log("POSTS:", JSON.stringify(require("./src/store/blogSlice").default.getInitialState ? require("./src/store/blogSlice").default.getInitialState().posts : require("./src/store/blogSlice").default.posts));

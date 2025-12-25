@@ -26,20 +26,21 @@ const Popular = () => {
     const now = new Date();
     const timeFilters = {
       all: () => true,
-      week: (post: any) => {
+      week: (post: Post) => {
         const postDate = new Date(post.publishedAt);
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         return postDate >= weekAgo;
       },
-      month: (post: any) => {
+      month: (post: Post) => {
         const postDate = new Date(post.publishedAt);
         const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         return postDate >= monthAgo;
       },
-      year: (post: any) => {
+      year: (post: Post) => {
         const postDate = new Date(post.publishedAt);
-        const yearAgo = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
-        return postDate >= yearAgo;
+        const yearAgo = new Date(post.publishedAt);
+        const yearAgoDate = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
+        return postDate >= yearAgoDate;
       },
     };
 
@@ -104,7 +105,7 @@ const Popular = () => {
   }, [filteredPosts]);
 
   // Get top performing category
-  function getTopCategory(posts: any[]) {
+  function getTopCategory(posts: Post[]) {
     const categoryStats = posts.reduce((acc, post) => {
       acc[post.category] = (acc[post.category] || 0) + post.views + post.likes * 2;
       return acc;

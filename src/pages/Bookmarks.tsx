@@ -24,6 +24,14 @@ interface BookmarkFolder {
   color: string;
 }
 
+interface BookmarkCardProps {
+  post: Post;
+  viewMode: ViewMode;
+  folders: BookmarkFolder[];
+  onAddToFolder: (postId: string, folderId: string) => void;
+  onRemoveFromFolder: (postId: string, folderId: string) => void;
+}
+
 const BOOKMARK_FOLDERS_KEY = 'bookmark-folders';
 
 const Bookmarks = () => {
@@ -66,18 +74,18 @@ const Bookmarks = () => {
   // Sort posts
   const sortedPosts = useMemo(() => {
     const sortFunctions = {
-      recent: (a: any, b: any) => {
+      recent: (a: Post, b: Post) => {
         const aIndex = bookmarkedIds.indexOf(a.id);
         const bIndex = bookmarkedIds.indexOf(b.id);
         return aIndex - bIndex;
       },
-      oldest: (a: any, b: any) => {
+      oldest: (a: Post, b: Post) => {
         const aIndex = bookmarkedIds.indexOf(a.id);
         const bIndex = bookmarkedIds.indexOf(b.id);
         return bIndex - aIndex;
       },
-      title: (a: any, b: any) => a.title.localeCompare(b.title),
-      author: (a: any, b: any) => a.author.name.localeCompare(b.author.name),
+      title: (a: Post, b: Post) => a.title.localeCompare(b.title),
+      author: (a: Post, b: Post) => a.author.name.localeCompare(b.author.name),
     };
 
     return [...filteredPosts].sort(sortFunctions[sortBy]);
@@ -391,7 +399,7 @@ const Bookmarks = () => {
 };
 
 // Bookmark Card Component
-const BookmarkCard = ({ post, viewMode, folders, onAddToFolder, onRemoveFromFolder }: any) => {
+const BookmarkCard = ({ post, viewMode, folders, onAddToFolder, onRemoveFromFolder }: BookmarkCardProps) => {
   const [showFolderMenu, setShowFolderMenu] = useState(false);
 
   if (viewMode === 'list') {
