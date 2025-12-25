@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { Search, Menu, X, Bookmark, Home, Grid3X3, Flame, History, Users, Info, LucideIcon, PenSquare, LogOut, User, BarChart3, Settings } from 'lucide-react';
+import { Search, Menu, X, Bookmark, Home, Grid3X3, Flame, History, Users, Info, LucideIcon, PenSquare, LogOut, User, BarChart3, Settings, Wand2, Trophy } from 'lucide-react';
 
 interface NavLink {
   path: string;
@@ -35,6 +35,8 @@ const Header = () => {
     { path: '/popular', label: 'Popular', icon: Flame },
     { path: '/categories', label: 'Categories', icon: Grid3X3 },
     { path: '/authors', label: 'Writers', icon: Users },
+    { path: '/writing-assistant', label: 'Write', icon: Wand2 },
+    { path: '/gamification', label: 'Progress', icon: Trophy },
     { path: '/analytics', label: 'Analytics', icon: BarChart3 },
     { path: '/settings', label: 'Settings', icon: Settings },
     { path: '/bookmarks', label: 'Bookmarks', icon: Bookmark, count: bookmarkedPosts.length },

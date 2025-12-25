@@ -25,6 +25,7 @@ export interface Post {
   trending: boolean;
   likes: number;
   views: number;
+  shares?: number;
   summary?: string; // AI-generated summary
   difficulty?: 'beginner' | 'intermediate' | 'advanced'; // Content difficulty
   wordCount?: number;
@@ -53,6 +54,8 @@ export interface User {
   bio?: string;
   website?: string;
   twitter?: string;
+  location?: string;
+  premiumPlan?: string;
   createdAt: string;
   readingSpeed?: number; // words per minute
   preferences?: UserPreferences;

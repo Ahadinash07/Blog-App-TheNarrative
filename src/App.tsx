@@ -24,6 +24,8 @@ import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import WritingAssistantPage from "./pages/WritingAssistant";
+import GamificationPage from "./pages/Gamification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +53,8 @@ const App = () => (
                 <Route path="/search" element={<Search />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/writing-assistant" element={<WritingAssistantPage />} />
+                <Route path="/gamification" element={<GamificationPage />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
